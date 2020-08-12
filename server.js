@@ -6,19 +6,19 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const argv = require('yargs')
-    .usage('Usage: $0 -p [PORT]')
+    .usage('Usage: $0 -p [DEFAULT_PORT]')
     .alias('p', 'port')
-    .describe('port', '(Optional) Port Number - default is 3000')
+    .describe('port', '(Optional) Port Number - default is 5000')
     .strict()
     .argv;
 
-const DEFAULT_PORT = 3000;
+const DEFAULT_PORT = 5000;
 
 //initialize express.
 const app = express();
 
 // Initialize variables.
-let port = DEFAULT_PORT; // -p {PORT} || 3000;
+let port = DEFAULT_PORT; // -p {PORT} || 5000;
 
 if (argv.p) {
     port = argv.p;

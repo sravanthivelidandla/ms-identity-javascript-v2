@@ -1,4 +1,7 @@
 // Helper function to call MS Graph API endpoint 
+
+const { response } = require("express");
+
 // using authorization bearer token scheme
 function callMSGraph(endpoint, token, callback) {
     const headers = new Headers();
@@ -15,6 +18,7 @@ function callMSGraph(endpoint, token, callback) {
 
     fetch(endpoint, options)
         .then(response => response.json())
+        .then(response => console.log(response))
         .then(response => callback(response, endpoint))
         .catch(error => console.log(error));
 }

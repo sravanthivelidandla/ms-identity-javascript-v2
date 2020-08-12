@@ -1,9 +1,12 @@
+
 // Create the main myMSALObj instance
 // configuration parameters are located at authConfig.js
 const myMSALObj = new msal.PublicClientApplication(msalConfig);
 
 let accessToken;
 let username = "";
+var AccountInfo
+ 
 
 // Redirect: once login is successful and redirects with tokens, call Graph API
 myMSALObj.handleRedirectPromise().then(handleResponse).catch(err => {
@@ -11,6 +14,8 @@ myMSALObj.handleRedirectPromise().then(handleResponse).catch(err => {
 });
 
 function handleResponse(resp) {
+    
+    debugger
     if (resp !== null) {
         username = resp.account.username;
         showWelcomeMessage(resp.account);
@@ -33,8 +38,12 @@ function handleResponse(resp) {
 }
 
 function signIn() {
+    debugger
     myMSALObj.loginRedirect(loginRequest);
 }
+
+
+
 
 function signOut() {
     const logoutRequest = {
@@ -51,6 +60,7 @@ function getTokenRedirect(request) {
      */
     request.account = myMSALObj.getAccountByUsername(username);
     return myMSALObj.acquireTokenSilent(request).catch(error => {
+        debugger
             console.warn("silent token acquisition fails. acquiring token using redirect");
             if (error instanceof msal.InteractionRequiredAuthError) {
                 // fallback to interaction when silent call fails
@@ -62,18 +72,22 @@ function getTokenRedirect(request) {
 }
 
 function seeProfile() {
-    getTokenRedirect(loginRequest).then(response => {
-        callMSGraph(graphConfig.graphMeEndpoint, response.accessToken, updateUI);
-        profileButton.classList.add('d-none');
-        mailButton.classList.remove('d-none');
+    console.log('making a call to fetch sync token')
+    getTokenRedirect(outlookRedirectRequest).then(response => {
+        alert('syncToken: ' + response.accessToken)
+       // callMSGraph(graphConfig.graphMeEndpoint, response.accessToken, updateUI);
+        //profileButton.classList.add('d-none');
+        //mailButton.classList.remove('d-none');
     }).catch(error => {
         console.error(error);
     });
 }
 
 function readMail() {
-    getTokenRedirect(tokenRequest).then(response => {
-        callMSGraph(graphConfig.graphMailEndpoint, response.accessToken, updateUI);
+    console.log('making a call to fetch shell token')
+    getTokenRedirect(shellRedirectRequest).then(response => {
+        alert('shell Token:' + response.accessToken)
+       // callMSGraph(graphConfig.graphMailEndpoint, response.accessToken, updateUI);
     }).catch(error => {
         console.error(error);
     });

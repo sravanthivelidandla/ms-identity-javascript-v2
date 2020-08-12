@@ -189,8 +189,8 @@ Function ConfigureApplications
    Write-Host "Creating the AAD application (ms-identity-javascript-v2)"
    # create the application 
    $spaAadApplication = New-AzureADApplication -DisplayName "ms-identity-javascript-v2" `
-                                               -HomePage "http://localhost:3000/" `
-                                               -ReplyUrls "http://localhost:3000/" `
+                                               -HomePage "http://localhost:5000/" `
+                                               -ReplyUrls "http://localhost:5000/" `
                                                -IdentifierUris "https://$tenantName/ms-identity-javascript-v2" `
                                                -AvailableToOtherTenants $True `
                                                -Oauth2AllowImplicitFlow $true `
