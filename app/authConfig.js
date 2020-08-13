@@ -3,11 +3,13 @@
 // visit https://azuread.github.io/microsoft-authentication-library-for-js/docs/msal/modules/_authenticationparameters_.html
 const msalConfig = {
     auth: {
-        //clientId: "3ff8e6ba-7dc3-4e9e-ba40-ee12b60d6d48",
+       // clientId: "5754bb84-f388-44f0-b3f7-9233a05bbb34",
+       //  authority:"https://login.microsoftonline.com/common"
+        clientId: "3ff8e6ba-7dc3-4e9e-ba40-ee12b60d6d48",
         authority: "https://login.windows-ppe.net/common",
         //directoryId: "ea8a4392-515e-481f-879e-6571ff2a8a36",
         //redirectUri: "https://localhost:5000/auth/callback",
-        clientId:"3fba556e-5d4a-48e3-8e1a-fd57c12cb82e"
+        //clientId:"3fba556e-5d4a-48e3-8e1a-fd57c12cb82e"
     },
     cache: {
         cacheLocation: "localStorage", // This configures where your cache will be stored
@@ -40,7 +42,9 @@ const msalConfig = {
 
 // Add here the scopes that you would like the user to consent during sign-in
 const loginRequest = {
-    scopes: ["User.ReadWrite"]
+   // scopes: ['User.Read','https://outlook.office.com/Tasks.ReadWrite','https://webshell.suite.office.com/.default']
+    scopes: ['User.ReadWrite']
+    //scopes: ['User.Read','https://outlook.officeppe.com/Tasks.ReadWrite','https://webshell.suite.officeppe.com/.default']
 };
 
 // Add here the scopes to request when obtaining an access token for MS Graph API
@@ -55,17 +59,17 @@ const graphRedirectRequest = {
 
   // Add here scopes for access token to be used at MS Graph API endpoints.
   const shellRedirectRequest = {
-    scopes: ['https://webshell.suite.office.com/default'] //fetch the shell token
+    scopes: ['https://webshell.suite.officeppe.com/.default'] //fetch the shell token
     
   };
 
   const outlookRedirectRequest = {
-    scopes:['https://outlook.office.com/Tasks.ReadWrite']
+    scopes:['https://outlook.officeppe.com/Tasks.ReadWrite']
     
   };
 
   const silentOutlookRequest = {
-    scopes: ['openid', 'profile', 'https://outlook.office.com/Tasks.ReadWrite']
+    scopes: ['openid', 'profile', 'https://outlook.officeppe.com/Tasks.ReadWrite']
     
   };
 
@@ -76,7 +80,7 @@ const graphRedirectRequest = {
   };
 
   const silentShellRequest = {
-    scopes: ['openid', 'profile', 'https://webshell.suite.office.com/default'],
+    scopes: ['openid', 'profile', 'https://webshell.suite.officeppe.com/.default'],
     account: this.account,
     forceRefresh: false
   };

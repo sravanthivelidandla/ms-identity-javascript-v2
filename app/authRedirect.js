@@ -84,9 +84,11 @@ function seeProfile() {
 }
 
 function readMail() {
+    const start = Date.now();
     console.log('making a call to fetch shell token')
     getTokenRedirect(shellRedirectRequest).then(response => {
-        alert('shell Token:' + response.accessToken)
+        const end = Date.now()-start;
+        alert('shell Token:' + response.accessToken + ' time taken : ' + end );
        // callMSGraph(graphConfig.graphMailEndpoint, response.accessToken, updateUI);
     }).catch(error => {
         console.error(error);
